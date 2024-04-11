@@ -109,13 +109,11 @@ export const TodoItem = (todo: TodoItemProps) => {
 
     useEffect(() => {
         if (!disable && inputRef.current) {
-            console.log(inputRef.current, 'ref')
             inputRef.current.focus();
             inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
         }
     }, [disable]);
 
-    console.log(isActive, 'is act')
     return (
         <ItemContainer completed={todo.done} isRemoving={isRemoving}>
             <CheckBox type="checkbox" checked={todo.done} onChange={() => dispatch(toggleCompletedTodo(todo.id))} />
