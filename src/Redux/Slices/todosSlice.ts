@@ -32,7 +32,14 @@ export const todosSlice = createSlice({
             window.localStorage.setItem(TODOS_KEY, JSON.stringify(updatedState));
             return updatedState;
         },
-        getTodoList: (state) => state,
+        updateTodo: (state, action: PayloadAction<{ id: number, todo: string }>) => {
+            const { id, todo: newTodo } = action.payload;
+            const currentInd = state.findIndex(todo => todo.id === id);
+            if (currentInd !== -1) {
+                state[currentInd].todo = newTodo;
+                window.localStorage.setItem(TODOS_KEY, JSON.stringify(state));
+            }
+        }
     },
     // extraReducers: (builder) => {
     //     builder.addCase(changeSelectFilter, (state, { payload }) => {
@@ -46,4 +53,4 @@ export const todosSlice = createSlice({
 
 })
 
-export const { addTodo, getTodoList, removeTodo, toggleCompletedTodo } = todosSlice.actions
+export const { addTodo, updateTodo, removeTodo, toggleCompletedTodo } = todosSlice.actions
